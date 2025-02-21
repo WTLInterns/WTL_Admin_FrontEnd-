@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "@react-google-maps/api": "^2.20.6",
+    "adminwtl": "file:",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "datatables.net": "^2.1.8",

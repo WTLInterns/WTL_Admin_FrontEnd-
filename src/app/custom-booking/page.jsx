@@ -1,107 +1,226 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Navbar from '../../container/components/Navbar';
-import axios from 'axios';
-import Link from 'next/link';
+"use client";
+import React, { useState } from "react";
 
-const Bookings = () => {
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
+const page = () => {
+  const [formData, setFormData] = useState({
+    fromLocation: "",
+    toLocation: "",
+    tripType: "One-way",
+    startDate: "",
+    returnDate: "",
+    time: "",
+    distance: "",
+    userId: "",
+    bookingId: "",
+    name: "",
+    email: "",
+    phone: "",
+    userPickup: "",
+    userDrop: "",
+    date: "",
+    userTripType: "",
+    bookid: "",
+    car: "Sedan",
+    baseAmount: "",
+    amount: 0,
+    status: 0,
+    driverBhata: "0",
+    nightCharges: 0,
+    gst: 0,
+    serviceCharge: 0,
+    offer: "",
+    offerPartial: 0,
+    offerAmount: "",
+    txnId: "0",
+    payment: "",
+    dateEnd: "",
+    timeEnd: "",
+    bookingType: "",
+    description: "",
+  });
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/admin/custom_booking_records');
-        if (response.data && Array.isArray(response.data.customBookings)) {
-          setBookings(response.data.customBookings);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchBookings();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // Handle changes to form inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   return (
-    <div className="flex">
-      <Navbar />
-      <div className="container mx-auto p-6">
-        <div className="bg-white shadow-lg rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Bookings Overview</h2>
-          <div className="overflow-x-auto">
-            <table className="w-full table-auto border-collapse">
-              <thead>
-                <tr className="bg-gray-100">
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">User</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Booking Id</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">User Name</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Phone</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Email</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Date/Time</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Trip Type</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Car Type</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Pickup</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Drop</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Amount</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">View</th>
-                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Array.isArray(bookings) && bookings.length > 0 ? (
-                  bookings.map((row, index) => (
-                    <tr key={`${row._id}-${index}`} className={`${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-gray-100`}>
-                      <td className="px-6 py-4">
-                        <img src="/images/avatar/all.jpg" alt="User Avatar" className="w-10 h-10 rounded-full" />
-                      </td>
-                      <td className="px-6 py-4">{row.bookingId}</td>
-                      <td className="px-6 py-4">{row.userName}</td>
-                      <td className="px-6 py-4">{row.phone}</td>
-                      <td className="px-6 py-4">{row.email}</td>
-                      <td className="px-6 py-4">
-                        <span className="block">{row.dateTime}</span>
-                        <span className="text-sm text-gray-500">{row.time}</span>
-                      </td>
-                      <td className="px-6 py-4">{row.tripType}</td>
-                      <td className="px-6 py-4">{row.carType}</td>
-                      <td className="px-6 py-4">{row.source}</td>
-                      <td className="px-6 py-4">{row.destination}</td>
-                      <td className="px-6 py-4 font-semibold text-gray-800">₹{row.amount}</td>
-                      <td className="px-6 py-4">
-                        <Link href={`/view/custom_booking/${row._id}`}>
-                          <button className="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:ring-blue-300 text-white">
-                            <i className="fas fa-eye"></i>
-                          </button>
-                        </Link>
-                      </td>
-                      <td className="px-6 py-4">
-                        <span
-                          className={`px-3 py-1 rounded-full text-sm ${row.status === 'Pending' ? 'bg-yellow-300 text-gray-800' : row.status === 'Confirmed' ? 'bg-blue-300 text-white' : row.status === 'Completed' ? 'bg-green-300 text-white' : 'bg-red-300 text-white'}`}
-                        >
-                          {row.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="12" className="px-6 py-4 text-center">No bookings found</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+    <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+      <h2 className="text-2xl font-semibold mb-6">Booking Form</h2>
+
+      <form>
+        {/* From and To Location */}
+        <div className="mb-4">
+          <label
+            htmlFor="fromLocation"
+            className="block text-sm font-medium text-gray-700"
+          >
+            From Location
+          </label>
+          <input
+            type="text"
+            name="fromLocation"
+            value={formData.fromLocation}
+            onChange={handleChange}
+            id="fromLocation"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter from location"
+          />
         </div>
-      </div>
+
+        <div className="mb-4">
+          <label
+            htmlFor="toLocation"
+            className="block text-sm font-medium text-gray-700"
+          >
+            To Location
+          </label>
+          <input
+            type="text"
+            name="toLocation"
+            value={formData.toLocation}
+            onChange={handleChange}
+            id="toLocation"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter to location"
+          />
+        </div>
+
+        {/* Trip Type Dropdown */}
+        <div className="mb-4">
+          <label
+            htmlFor="tripType"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Trip Type
+          </label>
+          <select
+            name="tripType"
+            value={formData.tripType}
+            onChange={handleChange}
+            id="tripType"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="One-way">One-way</option>
+            <option value="Round Trip">Round Trip</option>
+          </select>
+        </div>
+
+        {/* Car Type Dropdown */}
+        <div className="mb-4">
+          <label
+            htmlFor="car"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Car Type
+          </label>
+          <select
+            name="car"
+            value={formData.car}
+            onChange={handleChange}
+            id="car"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="Sedan">Sedan</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="SUV">SUV</option>
+          </select>
+        </div>
+
+        {/* Start Date */}
+        <div className="mb-4">
+          <label
+            htmlFor="startDate"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Start Date
+          </label>
+          <input
+            type="date"
+            name="startDate"
+            value={formData.startDate}
+            onChange={handleChange}
+            id="startDate"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Return Date (Only if Round Trip) */}
+        {formData.tripType === "Round Trip" && (
+          <div className="mb-4">
+            <label
+              htmlFor="returnDate"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Return Date
+            </label>
+            <input
+              type="date"
+              name="returnDate"
+              value={formData.returnDate}
+              onChange={handleChange}
+              id="returnDate"
+              className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        )}
+
+        {/* Time */}
+        <div className="mb-4">
+          <label
+            htmlFor="time"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Time
+          </label>
+          <input
+            type="time"
+            name="time"
+            value={formData.time}
+            onChange={handleChange}
+            id="time"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Distance */}
+        <div className="mb-4">
+          <label
+            htmlFor="distance"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Distance
+          </label>
+          <input
+            type="text"
+            name="distance"
+            value={formData.distance}
+            onChange={handleChange}
+            id="distance"
+            className="mt-1 p-2 w-full border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter distance"
+          />
+        </div>
+
+        {/* Other fields */}
+        {/* You can add the rest of the fields similarly */}
+
+        {/* Submit Button */}
+        <div className="mt-6 flex justify-center">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"
+          >
+            Submit Booking
+          </button>
+        </div>
+      </form>
     </div>
   );
 };
 
-export default Bookings;
+export default page;

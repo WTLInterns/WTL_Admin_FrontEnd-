@@ -9,14 +9,14 @@ import {
   FaGlobe,
   FaEdit,
   FaTimes,
-  FaCarAlt
+  FaCarAlt,
 } from "react-icons/fa";
 import {
   BsArrowRightCircle,
   BsArrowLeftCircle,
   BsArrowDownCircle,
 } from "react-icons/bs";
-import { FaPeopleGroup ,FaChartPie } from "react-icons/fa6";
+import { FaPeopleGroup, FaChartPie } from "react-icons/fa6";
 
 const Layout = ({ children }) => {
   const [openDropdown, setOpenDropdown] = useState(null); // Track which dropdown is open
@@ -84,25 +84,26 @@ const Layout = ({ children }) => {
             )}
           </li>
 
-           {/* {Fleet Section} */}
-           <button
-            onClick={() => toggleDropdown('Fleet')}
+          {/* {Fleet Section} */}
+          <button
+            onClick={() => toggleDropdown("Fleet")}
             className="flex items-center justify-between w-full py-2 px-4 hover:bg-blue-500 rounded"
           >
             Fleet
             <FaChevronDown
-              className={`ml-2 transform ${openDropdown === 'allBooking' ? 'rotate-180' : ''
-                }`}
+              className={`ml-2 transform ${
+                openDropdown === "allBooking" ? "rotate-180" : ""
+              }`}
             />
           </button>
-          {openDropdown === 'Fleet' && (
+          {openDropdown === "Fleet" && (
             <ul className="mt-2 bg-white text-gray-700 rounded shadow-md w-full">
               <li>
                 <Link
                   href="/fleet/cabs"
                   className="flex items-center py-2 px-4 hover:bg-blue-100 rounded"
                 >
-                  <FaCarAlt className='mr-2 ' />
+                  <FaCarAlt className="mr-2 " />
                   _Cabs
                 </Link>
               </li>
@@ -120,7 +121,7 @@ const Layout = ({ children }) => {
                   href="/fleet/outsource"
                   className="flex items-center py-2 px-4 hover:bg-blue-100 rounded "
                 >
-                  <FaChartPie  className="mr-2" />
+                  <FaChartPie className="mr-2" />
                   _Outsource
                 </Link>
               </li>
@@ -208,7 +209,7 @@ const Layout = ({ children }) => {
               <ul className="mt-2 bg-gray-700 rounded shadow-md w-full">
                 <li>
                   <Link
-                    href="vendors/all-vendors"
+                    href="/vendors/all-vendors"
                     className="flex items-center py-2 px-4 hover:bg-gray-600 rounded"
                   >
                     <FaBusinessTime className="mr-2" />
@@ -233,7 +234,6 @@ const Layout = ({ children }) => {
                     Vendor Report
                   </Link>
                 </li>
-               
               </ul>
             )}
           </li>
