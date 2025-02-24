@@ -129,7 +129,7 @@ const Layout = ({ children }) => {
           )}
 
           {/* B2B Dropdown */}
-          <li className="relative">
+          {/* <li className="relative">
             <button
               onClick={() => toggleDropdown("b2b")}
               className="flex items-center justify-between w-full py-2 px-4 hover:bg-blue-500 rounded"
@@ -172,7 +172,7 @@ const Layout = ({ children }) => {
                 </li>
               </ul>
             )}
-          </li>
+          </li> */}
 
           {/* Other Links */}
           <li>
