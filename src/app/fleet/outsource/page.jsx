@@ -2,7 +2,7 @@
 import { FaPlus, FaArrowRight } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../container/components/Navbar";
-import OutsourceForm from "../../../container/components/OutsourceForm"; // Ensure correct case
+import Outsourceform from "../../../container/components/Outsourceform"
 import { useRouter } from "next/navigation";
 // Dummy Data
 const cabData = [
@@ -99,7 +99,7 @@ const Page = () => {
             </div>
 
             {/* Modal */}
-            <OutsourceForm
+            <Outsourceform
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
             />
