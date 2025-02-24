@@ -2,7 +2,7 @@
 import { FaPlus, FaArrowRight } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../../container/components/Navbar";
-import OutsourceForm from "../outsource"; // Ensure correct case
+import OutsourceForm from "../../../container/components/OutsourceForm"; // Ensure correct case
 import { useRouter } from "next/navigation";
 // Dummy Data
 const cabData = [
