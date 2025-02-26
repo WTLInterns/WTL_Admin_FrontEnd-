@@ -36,7 +36,7 @@ const AllVendors = () => {
     const fetchVendors = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8080/vendors");
+        const response = await fetch("https://worldtriplink.com/vendors");
         const data = await response.json();
         setVendors(data);
       } catch (error) {
@@ -58,7 +58,7 @@ const AllVendors = () => {
     if (!confirmDelete) return;
   
     try {
-      const response = await fetch(`http://localhost:8080/vendors/delete/${vendorId}`, {
+      const response = await fetch(`https://worldtriplink.com/vendors/delete/${vendorId}`, {
         method: "DELETE",
       });
   
