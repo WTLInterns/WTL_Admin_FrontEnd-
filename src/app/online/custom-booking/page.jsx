@@ -41,7 +41,7 @@ const Bookings = () => {
     console.log("Booking Data to be sent:", bookingData); // Log before sending
 
     try {
-      const response = await fetch("https://worldtriplink.com/customBooking", {
+      const response = await fetch("http://localhost:8080/customBooking", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const Bookings = () => {
   const [booking, setBooking] = useState([]);
   const fetchBookings = async () => {
     try {
-      const response = await axios.get("https://worldtriplink.com/details");
+      const response = await axios.get("http://localhost:8080/details");
       if (response.status === 200 && Array.isArray(response.data)) {
         setBooking(response.data);
         // setFilteredBookings(response.data);
